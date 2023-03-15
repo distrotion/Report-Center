@@ -41,6 +41,7 @@ router.post('/INS_Report_PDF', async (req, res) => {
   let find6 = [];
   let find7 = [];
   let find8 = [];
+  let find9 = [];
 
   let DATA = [];
   let PATTERNs = [];
@@ -55,6 +56,7 @@ router.post('/INS_Report_PDF', async (req, res) => {
     find6 = await mongodb.find(masterDB, INSTRUMENTS, {});
     find7 = await mongodb.find(masterDB, CALCULATE, { "activeid": "active_id" });
     find8 = await mongodb.find(masterDB, SPECIFICATION, { "activeid": "active_id" });
+    find9 = await mongodb.find(masterDB, UNIT, { "activeid": "active_id" });
 
 
     DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
@@ -65,7 +67,7 @@ router.post('/INS_Report_PDF', async (req, res) => {
 
 
 
-  return res.json({ "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7 , "SPECIFICATION": find8 });
+  return res.json({ "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7 , "SPECIFICATION": find8 , "UNIT": find9 });
 });
 
 router.get('/FINALMASTER', async (req, res) => {

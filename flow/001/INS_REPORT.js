@@ -75,6 +75,21 @@ router.get('/FINALMASTER', async (req, res) => {
 });
 
 
+router.post('/INS_REMASK', async (req, res) => {
+  //-------------------------------------
+  console.log("--INS_REMASK--");
+
+  let output = 'NOK';
+
+  if (input['PO'] != undefined && input['REMARK'] != undefined) {
+
+    find1 = await mongodb.update("MAIN_DATA", "MAIN", { "PO": input['PO']},{ "REMARK": input['REMARK']});
+    output = 'OK';
+  }
+
+  return res.json({ "STATUS": output });
+});
+
 
 
 module.exports = router;

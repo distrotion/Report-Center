@@ -29,9 +29,9 @@ router.get('/FINALMASTER', async (req, res) => {
   return res.json("READY");
 });
 
-router.post('/INS_Report_PDF', async (req, res) => {
+router.post('/GW_Report_PDF', async (req, res) => {
   //-------------------------------------
-  console.log("--INS_Report_PDF--");
+  console.log("--GW_Report_PDF--");
   let input = req.body;
   let find1 = [];
   let find2 = [];

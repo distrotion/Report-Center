@@ -16,6 +16,7 @@ let METHOD = "METHOD";
 let INSTRUMENTS = "INSTRUMENTS";
 let RESULTFORMAT = "RESULTFORMAT";
 let SPECIFICATION = "SPECIFICATION";
+let DESIMAL = "DESIMAL";
 let TOLERANCE = "TOLERANCE";
 let GRAPHTYPE = "GRAPHTYPE";
 let CALCULATE = "CALCULATE";
@@ -23,6 +24,7 @@ let LOAD = "LOAD";
 let CORETYPE = "CORETYPE";
 let FREQUENCY = "FREQUENCY";
 let PATTERN_01 = "PATTERN_01";
+
 
 
 router.get('/FINALMASTER', async (req, res) => {
@@ -42,6 +44,7 @@ router.post('/HESG_Report_PDF', async (req, res) => {
   let find7 = [];
   let find8 = [];
   let find9 = [];
+  let find10= [];
 
   let DATA = [];
   let PATTERNs = [];
@@ -57,6 +60,7 @@ router.post('/HESG_Report_PDF', async (req, res) => {
     find7 = await mongodb.find(masterDB, CALCULATE, { "activeid": "active_id" });
     find8 = await mongodb.find(masterDB, SPECIFICATION, { "activeid": "active_id" });
     find9 = await mongodb.find(masterDB, UNIT, { "activeid": "active_id" });
+    find10 = await mongodb.find(masterDB, DESIMAL, { "activeid": "active_id" });
 
 
     DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
@@ -67,7 +71,7 @@ router.post('/HESG_Report_PDF', async (req, res) => {
 
 
 
-  return res.json({ "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7 , "SPECIFICATION": find8 , "UNIT": find9 });
+  return res.json({ "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7 , "SPECIFICATION": find8 , "UNIT": find9, "DESIMAL": find10 });
 });
 
 router.get('/FINALMASTER', async (req, res) => {

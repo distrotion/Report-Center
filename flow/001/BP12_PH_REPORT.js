@@ -4,7 +4,8 @@ var mongodb = require('../../function/BP12PHmongodb');
 var mssql = require('../../function/mssql');
 var request = require('request');
 
-let masterDB = "master_FN";
+let masterDB_FN = "master_FN";
+let masterDB_IC = "master_IC";
 let PATTERN = "PATTERN";
 //
 let GRAPH_TABLE = "GRAPH_TABLE";
@@ -24,6 +25,10 @@ let LOAD = "LOAD";
 let CORETYPE = "CORETYPE";
 let FREQUENCY = "FREQUENCY";
 let PATTERN_01 = "PATTERN_01";
+
+
+
+
 
 
 
@@ -51,16 +56,31 @@ router.post('/BP12PH_Report_PDF', async (req, res) => {
   //-------------------------------------
   if (input['PO'] != undefined) {
 
-    find1 = await mongodb.find(masterDB, TYPE, { "activeid": "active_id" });
-    find2 = await mongodb.find(masterDB, ITEMs, { "activeid": "active_id" });
-    find3 = await mongodb.find(masterDB, MACHINE, { "activeid": "active_id" });
-    find4 = await mongodb.find(masterDB, RESULTFORMAT, {});
-    find5 = await mongodb.find(masterDB, GRAPHTYPE, {});
-    find6 = await mongodb.find(masterDB, INSTRUMENTS, {});
-    find7 = await mongodb.find(masterDB, CALCULATE, { "activeid": "active_id" });
-    find8 = await mongodb.find(masterDB, SPECIFICATION, { "activeid": "active_id" });
-    find9 = await mongodb.find(masterDB, UNIT, { "activeid": "active_id" });
-    find10 = await mongodb.find(masterDB, DESIMAL, { "activeid": "active_id" });
+    find1 = await mongodb.find(masterDB_FN, TYPE, { "activeid": "active_id" });
+    find2 = await mongodb.find(masterDB_FN, ITEMs, { "activeid": "active_id" });
+    find3 = await mongodb.find(masterDB_FN, MACHINE, { "activeid": "active_id" });
+    find4 = await mongodb.find(masterDB_FN, RESULTFORMAT, {});
+    find5 = await mongodb.find(masterDB_FN, GRAPHTYPE, {});
+    find6 = await mongodb.find(masterDB_FN, INSTRUMENTS, {});
+    find7 = await mongodb.find(masterDB_FN, CALCULATE, { "activeid": "active_id" });
+    find8 = await mongodb.find(masterDB_FN, SPECIFICATION, { "activeid": "active_id" });
+    find9 = await mongodb.find(masterDB_FN, UNIT, { "activeid": "active_id" });
+    find10 = await mongodb.find(masterDB_FN, DESIMAL, { "activeid": "active_id" });
+
+
+    find11 = await mongodb.find(masterDB_IC, TYPE, { "activeid": "active_id" });
+    find12 = await mongodb.find(masterDB_IC, ITEMs, { "activeid": "active_id" });
+    find13 = await mongodb.find(masterDB_IC, MACHINE, { "activeid": "active_id" });
+    find14 = await mongodb.find(masterDB_IC, RESULTFORMAT, {});
+    find15 = await mongodb.find(masterDB_IC, GRAPHTYPE, {});
+    find16 = await mongodb.find(masterDB_IC, INSTRUMENTS, {});
+    find17 = await mongodb.find(masterDB_IC, CALCULATE, { "activeid": "active_id" });
+    find18 = await mongodb.find(masterDB_IC, SPECIFICATION, { "activeid": "active_id" });
+    find19 = await mongodb.find(masterDB_IC, UNIT, { "activeid": "active_id" });
+    find20 = await mongodb.find(masterDB_IC, DESIMAL, { "activeid": "active_id" });
+
+
+
 
 
     DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
@@ -71,7 +91,10 @@ router.post('/BP12PH_Report_PDF', async (req, res) => {
 
 
 
-  return res.json({ "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7 , "SPECIFICATION": find8 , "UNIT": find9, "DESIMAL": find10 });
+  return res.json({ 
+    "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7 , "SPECIFICATION": find8 , "UNIT": find9, "DESIMAL": find10,
+    "TYPE_IC": find11, "ITEMS_IC": find12, "METHOD_IC": find13, "RESULTFORMAT_IC": find14, "GRAPHTYPE_IC": find15, "INSTRUMENTS_IC": find16, "CALCULATE_IC": find17 , "SPECIFICATION_IC": find18 , "UNIT_IC": find19, "DESIMAL_IC": find20,
+  });
 });
 
 router.get('/FINALMASTER', async (req, res) => {

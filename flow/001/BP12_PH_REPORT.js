@@ -49,7 +49,7 @@ router.post('/BP12PH_Report_PDF', async (req, res) => {
   let find7 = [];
   let find8 = [];
   let find9 = [];
-  let find10= [];
+  let find10 = [];
 
   let DATA = [];
   let PATTERNs = [];
@@ -91,10 +91,38 @@ router.post('/BP12PH_Report_PDF', async (req, res) => {
 
 
 
-  return res.json({ 
-    "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7 , "SPECIFICATION": find8 , "UNIT": find9, "DESIMAL": find10,
-    "TYPE_IC": find11, "ITEMS_IC": find12, "METHOD_IC": find13, "RESULTFORMAT_IC": find14, "GRAPHTYPE_IC": find15, "INSTRUMENTS_IC": find16, "CALCULATE_IC": find17 , "SPECIFICATION_IC": find18 , "UNIT_IC": find19, "DESIMAL_IC": find20,
+  return res.json({
+    "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7, "SPECIFICATION": find8, "UNIT": find9, "DESIMAL": find10,
+    "TYPE_IC": find11, "ITEMS_IC": find12, "METHOD_IC": find13, "RESULTFORMAT_IC": find14, "GRAPHTYPE_IC": find15, "INSTRUMENTS_IC": find16, "CALCULATE_IC": find17, "SPECIFICATION_IC": find18, "UNIT_IC": find19, "DESIMAL_IC": find20,
   });
+});
+
+
+router.post('/BP12PH_Report_by_ref', async (req, res) => {
+  //-------------------------------------
+  console.log("--BP12PH_Report_by_ref--");
+  let input = req.body;
+  let DATA = [];
+  let DATAmaster = [];
+
+  //-------------------------------------
+  if (input['PO'] != undefined) {
+
+
+
+    DATAlist = await mongodb.find("MAIN_DATA", "MAIN", { "ReferFrom": `${input['PO']}` });
+    DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
+
+    return res.json({
+      "DATA": DATA,
+      "DATAlist": DATAlist,
+    });
+
+  }
+
+
+
+
 });
 
 router.get('/FINALMASTER', async (req, res) => {

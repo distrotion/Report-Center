@@ -125,6 +125,39 @@ router.post('/BP12PH_Report_by_ref', async (req, res) => {
 
 });
 
+router.post('/BP12PH_CALDATA', async (req, res) => {
+  //-------------------------------------
+  console.log("--BP12PH_CALDATA--");
+  let input = req.body;
+  let DATA = [];
+  let CALDATA = [];
+
+  //-------------------------------------
+  if (input['PO'] != undefined) {
+
+
+
+    CALDATA = await mongodb.find("BUFFERCAL", "SURBAL013", { "PO": `${input['PO']}` });
+
+
+    return res.json({
+
+      "DATAlist": CALDATA,
+    });
+
+  }else{
+    return res.json({
+
+      "DATAlist": CALDATA,
+    });
+
+  }
+
+
+
+
+});
+
 router.get('/FINALMASTER', async (req, res) => {
   return res.json("READY");
 });

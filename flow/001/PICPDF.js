@@ -71,11 +71,11 @@ router.post('/RAWDATA/sapget', async (req, res) => {
         "IMP_TEXT02": input[`ORDER`],
         "TABLE_NAME": "PPORDER"
       });
-      if (resp.status == 200) {
+      // if (resp.status == 200) {
         let returnDATA = resp.data;
         output = returnDATA["Records"] || []
         //  console.log(output)
-      }
+      // }
     } catch (err) {
       output = [];
     }

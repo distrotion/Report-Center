@@ -52,6 +52,7 @@ router.post('/HESPH_Report_PDF', async (req, res) => {
   let find10 = [];
 
   let DATA = [];
+  let DATAIP = [];
   let PATTERNs = [];
   //-------------------------------------
   if (input['PO'] != undefined) {
@@ -84,6 +85,7 @@ router.post('/HESPH_Report_PDF', async (req, res) => {
 
 
     DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
+    DATAIP = await mongodb.find("MAIN_INPROCESS", "MAIN", { "PO": `${input['PO']}` });
     if (DATA.length > 0) {
       PATTERNs = await mongodb.find(PATTERN, PATTERN_01, { "CP": `${DATA[0]['MATCP']}` });
     }
@@ -92,7 +94,7 @@ router.post('/HESPH_Report_PDF', async (req, res) => {
 
 
   return res.json({
-    "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7, "SPECIFICATION": find8, "UNIT": find9, "DESIMAL": find10,
+    "DATA": DATA,"DATAIP": DATAIP, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7, "SPECIFICATION": find8, "UNIT": find9, "DESIMAL": find10,
     "TYPE_IC": find11, "ITEMS_IC": find12, "METHOD_IC": find13, "RESULTFORMAT_IC": find14, "GRAPHTYPE_IC": find15, "INSTRUMENTS_IC": find16, "CALCULATE_IC": find17, "SPECIFICATION_IC": find18, "UNIT_IC": find19, "DESIMAL_IC": find20,
   });
 });

@@ -8,7 +8,12 @@ const { jsPDF } = require("jspdf");
 const pdf2base64 = require('pdf-to-base64');
 var fs = require('fs');
 
+Number.prototype.pad = function(n) {
+  if (n===undefined)
+      n = 2;
 
+  return (new Array(n).join('0') + this).slice(-n);
+}
 
 
 
@@ -29,6 +34,18 @@ router.post('/goPDF', async (req, res) => {
     doc.addImage(`data:image/jpeg;base64,` + input[`PIC`], 'JPEG', 0, 0, width, height)
 
     doc.save(`${input[`PO`]}.pdf`)
+
+    const d = new Date();
+    // let day = d.getDate();
+    let month = d.getMonth();
+    let year = d.getFullYear();
+    console.log(month.pad(2))
+    console.log(year.pad(4))
+  
+    var dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\${year.pad(4)}${month.pad(2)}\\${input['PO']}`;
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
   
 
     //save file แล้วผม read มาเป็น base64 ส่งกลับ

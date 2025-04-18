@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-var mongodb = require('../../function/HESmongodb');
+var mongodb = require('../../function/BP12GASmongodb');
 var mssql = require('../../function/mssql');
 var request = require('request');
 
@@ -31,9 +31,9 @@ router.get('/FINALMASTER', async (req, res) => {
   return res.json("READY");
 });
 
-router.post('/HESG_Report_PDF', async (req, res) => {
+router.post('/BP12G_Report_PDF', async (req, res) => {
   //-------------------------------------
-  console.log("--HESG_Report_PDF--");
+  console.log("--BP12G_Report_PDF--");
   let input = req.body;
   let find1 = [];
   let find2 = [];

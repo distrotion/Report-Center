@@ -90,6 +90,30 @@ router.post('/INS_REMASK', async (req, res) => {
   return res.json({ "STATUS": output });
 });
 
+router.post('/INS_Report_by_ref', async (req, res) => {
+  //-------------------------------------
+  console.log("--INS_Report_by_ref--");
+  let input = req.body;
+  let DATA = [];
+  let DATAmaster = [];
+
+  //-------------------------------------
+  if (input['PO'] != undefined) {
+
+
+
+    DATAlist = await mongodb.find("MAIN_DATA", "MAIN", { "ReferFrom": `${input['PO']}` });
+    DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
+
+    return res.json({
+      "DATA": DATA,
+      "DATAlist": DATAlist,
+    });
+
+  }
+
+});
+
 
 
 module.exports = router;

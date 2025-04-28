@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-var mongodb = require('../../function/BP12GASmongodbTEST');
+var mongodb = require('../../function/BP12G_TESTASmongodbTEST');
 var mssql = require('../../function/mssql');
 var request = require('request');
 
@@ -31,9 +31,9 @@ router.get('/FINALMASTER', async (req, res) => {
   return res.json("READY");
 });
 
-router.post('/BP12G_Report_PDF', async (req, res) => {
+router.post('/BP12G_TEST_Report_PDF', async (req, res) => {
   //-------------------------------------
-  console.log("--BP12G_Report_PDF--");
+  console.log("--BP12G_TEST_Report_PDF--");
   let input = req.body;
   let find1 = [];
   let find2 = [];
@@ -78,9 +78,9 @@ router.get('/FINALMASTER', async (req, res) => {
   return res.json("READY");
 });
 
-router.post('/BP12GAS_Report_by_ref', async (req, res) => {
+router.post('/BP12G_TESTAS_Report_by_ref', async (req, res) => {
   //-------------------------------------
-  console.log("--BP12GAS_Report_by_ref--");
+  console.log("--BP12G_TESTAS_Report_by_ref--");
   let input = req.body;
   let DATA = [];
   let DATAmaster = [];

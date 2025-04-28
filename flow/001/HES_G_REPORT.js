@@ -78,6 +78,30 @@ router.get('/FINALMASTER', async (req, res) => {
   return res.json("READY");
 });
 
+router.post('/HESGAS_Report_by_ref', async (req, res) => {
+  //-------------------------------------
+  console.log("--HESGAS_Report_by_ref--");
+  let input = req.body;
+  let DATA = [];
+  let DATAmaster = [];
+
+  //-------------------------------------
+  if (input['PO'] != undefined) {
+
+
+
+    DATAlist = await mongodb.find("MAIN_DATA", "MAIN", { "ReferFrom": `${input['PO']}` });
+    DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
+
+    return res.json({
+      "DATA": DATA,
+      "DATAlist": DATAlist,
+    });
+
+  }
+
+});
+
 
 
 

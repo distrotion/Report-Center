@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-var mongodb = require('../../function/BP12GASmongodb');
+var mongodb = require('../../function/BP12GASmongodbTEST');
 var mssql = require('../../function/mssql');
 var request = require('request');
 

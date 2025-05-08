@@ -72,6 +72,61 @@ router.post('/goPDF', async (req, res) => {
   return res.json({ "PIC": bitmap });
 });
 
+router.post('/goPDF_TESTSAP', async (req, res) => {
+  //-------------------------------------
+  console.log("--goPDF--");
+  let input = req.body;
+ 
+
+  // console.log(input[`PIC`])
+  let bitmap = ``
+
+  if (input[`PIC`] != undefined,input[`PO`] != undefined) {
+    let doc = new jsPDF("p", "mm", "a4",true);
+    var width = doc.internal.pageSize.getWidth();
+    var height = doc.internal.pageSize.getHeight();
+
+    doc.addImage(`data:image/jpeg;base64,` + input[`PIC`], 'JPEG', 0, 0, width, height)
+
+    doc.save(`${input[`PO`]}.pdf`)
+
+    const d = new Date();
+    // let day = d.getDate();
+    let month = d.getMonth();
+    let year = d.getFullYear();
+    console.log(month.pad(2))
+    console.log(year.pad(4))
+  
+    var dir = `\\\\172.20.10.150\\sap_s4hana\\S4DEV\\HSORDERSHEET_PP\\${input['PO']}`;
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+  
+
+    //save file แล้วผม read มาเป็น base64 ส่งกลับ
+   
+  await pdf2base64(`${input[`PO`]}.pdf`)
+    .then(
+        (response) => {
+            // console.log(response); 
+            fs.rmSync(`${input[`PO`]}.pdf`);
+            bitmap = response;
+           
+        }
+    )
+    .catch(
+        (error) => {
+          fs.rmSync(`${input[`PO`]}.pdf`);
+          // console.log(error); //Exepection error....
+
+        }
+    )
+
+  }
+
+  return res.json({ "PIC": bitmap });
+});
+
 router.post('/RAWDATA/sapget', async (req, res) => {
   //-------------------------------------
   console.log("--RAWDATA/sapget--");

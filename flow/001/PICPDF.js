@@ -97,7 +97,7 @@ router.post('/goPDF_TESTSAP', async (req, res) => {
     console.log(month.pad(2))
     console.log(year.pad(4))
   
-    var dir = `\\\\172.20.10.150\\sap_s4hana\\S4DEV\\HSORDERSHEET_PP\\${input['PO']}`;
+    var dir = `\\\\172.20.10.150\\sap_s4hana\\S4DEV\\HSORDERSHEET_PP\\input\\${input['PO']}`;
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }

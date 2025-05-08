@@ -42,7 +42,11 @@ router.post('/goPDF', async (req, res) => {
     console.log(month.pad(2))
     console.log(year.pad(4))
   
-    var dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\${year.pad(4)}${(month+1).pad(2)}\\${input['PO']}`;
+    // var dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\${year.pad(4)}${(month+1).pad(2)}\\${input['PO']}`;
+    var dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Input\\${input['PO']}`;
+ 
+
+    //S4PRD\HSORDERSHEET_PP\Input
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }

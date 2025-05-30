@@ -49,14 +49,21 @@ router.post('/goPDF', async (req, res) => {
     //.substring(startIndex, endIndex)
 
     // var dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\${year.pad(4)}${(month+1).pad(2)}\\${input['PO']}`;
-    if(`${input['PO']}`.substring(0, 3) === '211' || `${input['PO']}`.substring(0, 3) === '212' ){
-      var dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12PH\\${input['PO']}`;
-    }else if( `${input['PO']}`.substring(0, 3) === '251'|| `${input['PO']}`.substring(0, 3) === '252'){
-      var dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12KNG\\${input['PO']}`;
-    }else{
-      var dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Input\\${input['PO']}`;
+    var dir = ``;
+    if (`${input['PO']}`.length > 4) {
+      if (`${input['PO']}`.substring(0, 3) === '211' || `${input['PO']}`.substring(0, 3) === '212') {
+        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12PH\\${input['PO']}`;
+      } else if (`${input['PO']}`.substring(0, 3) === '251' || `${input['PO']}`.substring(0, 3) === '252') {
+        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12KNG\\${input['PO']}`;
+      } else {
+        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Input\\${input['PO']}`;
+      }
+    } else {
+      dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Input\\${input['PO']}`;
     }
-  
+
+
+    console.log(dir);
 
     //S4PRD\HSORDERSHEET_PP\Input
     if (!fs.existsSync(dir)) {
@@ -116,13 +123,21 @@ router.post('/genfloder', async (req, res) => {
 
     // var dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\${year.pad(4)}${(month+1).pad(2)}\\${input['PO']}`;
     // var dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Input\\${input['PO']}`;
-    if(`${input['PO']}`.substring(0, 3) === '211' || `${input['PO']}`.substring(0, 3) === '212' ){
-      var dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12PH\\${input['PO']}`;
-    }else if( `${input['PO']}`.substring(0, 3) === '251'|| `${input['PO']}`.substring(0, 3) === '252'){
-      var dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12KNG\\${input['PO']}`;
-    }else{
-      var dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Input\\${input['PO']}`;
+
+    var dir = ``;
+    if (`${input['PO']}`.length > 4) {
+      if (`${input['PO']}`.substring(0, 3) === '211' || `${input['PO']}`.substring(0, 3) === '212') {
+        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12PH\\${input['PO']}`;
+      } else if (`${input['PO']}`.substring(0, 3) === '251' || `${input['PO']}`.substring(0, 3) === '252') {
+        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12KNG\\${input['PO']}`;
+      } else {
+        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Input\\${input['PO']}`;
+      }
+    } else {
+      dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Input\\${input['PO']}`;
     }
+
+    console.log(dir);
 
     //S4PRD\HSORDERSHEET_PP\Input
     if (!fs.existsSync(dir)) {

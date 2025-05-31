@@ -28,7 +28,7 @@ let PATTERN_01 = "PATTERN_01";
 
 
 router.get('/FINALMASTER2', async (req, res) => {
-  return res.json(`1234567890`.substring(0, 3));
+  return res.json(`00123456789x`.substring(2, 12));
 });
 
 router.post('/BP12G_Report_PDF', async (req, res) => {

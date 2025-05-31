@@ -31,6 +31,10 @@ router.get('/FINALMASTER2', async (req, res) => {
   return res.json(`00123456789x`.substring(2, 12));
 });
 
+router.get('/FINALMASTER3', async (req, res) => {
+  return res.json(`00123456789x`.length);
+});
+
 router.post('/BP12G_Report_PDF', async (req, res) => {
   //-------------------------------------
   console.log("--BP12G_Report_PDF--");

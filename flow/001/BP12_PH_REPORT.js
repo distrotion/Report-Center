@@ -51,10 +51,24 @@ router.post('/BP12PH_Report_PDF', async (req, res) => {
   let find9 = [];
   let find10 = [];
 
+
+  let find11 = [];
+  let find12 = [];
+  let find13 = [];
+  let find14 = [];
+  let find15 = [];
+  let find16 = [];
+  let find17 = [];
+  let find18 = [];
+  let find19 = [];
+  let find20 = [];
+
   let DATA = [];
   let PATTERNs = [];
   //-------------------------------------
+
   if (input['PO'] != undefined) {
+     console.log("----1");
 
     find1 = await mongodb.find(masterDB_FN, TYPE, { "activeid": "active_id" });
     find2 = await mongodb.find(masterDB_FN, ITEMs, { "activeid": "active_id" });
@@ -68,25 +82,27 @@ router.post('/BP12PH_Report_PDF', async (req, res) => {
     find10 = await mongodb.find(masterDB_FN, DESIMAL, { "activeid": "active_id" });
 
 
-    find11 = await mongodb.find(masterDB_IC, TYPE, { "activeid": "active_id" });
+    // find11 = await mongodb.find(masterDB_IC, TYPE, { "activeid": "active_id" });
     find12 = await mongodb.find(masterDB_IC, ITEMs, { "activeid": "active_id" });
     find13 = await mongodb.find(masterDB_IC, MACHINE, { "activeid": "active_id" });
-    find14 = await mongodb.find(masterDB_IC, RESULTFORMAT, {});
-    find15 = await mongodb.find(masterDB_IC, GRAPHTYPE, {});
-    find16 = await mongodb.find(masterDB_IC, INSTRUMENTS, {});
-    find17 = await mongodb.find(masterDB_IC, CALCULATE, { "activeid": "active_id" });
+    // find14 = await mongodb.find(masterDB_IC, RESULTFORMAT, {});
+    // find15 = await mongodb.find(masterDB_IC, GRAPHTYPE, {});
+    // find16 = await mongodb.find(masterDB_IC, INSTRUMENTS, {});
+    // find17 = await mongodb.find(masterDB_IC, CALCULATE, { "activeid": "active_id" });
     find18 = await mongodb.find(masterDB_IC, SPECIFICATION, { "activeid": "active_id" });
-    find19 = await mongodb.find(masterDB_IC, UNIT, { "activeid": "active_id" });
-    find20 = await mongodb.find(masterDB_IC, DESIMAL, { "activeid": "active_id" });
+    // find19 = await mongodb.find(masterDB_IC, UNIT, { "activeid": "active_id" });
+    // find20 = await mongodb.find(masterDB_IC, DESIMAL, { "activeid": "active_id" });
 
 
 
-
+  console.log("----2");
 
     DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
     if (DATA.length > 0) {
       PATTERNs = await mongodb.find(PATTERN, PATTERN_01, { "CP": `${DATA[0]['MATCP']}` });
     }
+  console.log("----3");
+    
   }
 
 

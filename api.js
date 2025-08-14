@@ -8,6 +8,10 @@ router.use(require("./flow/001/GW_REPORT"))
 router.use(require("./flow/001/HES_G_REPORT"))
 router.use(require("./flow/001/BP12_G_REPORT"))
 router.use(require("./flow/001/BP12_KNG_REPORT"))
+router.use(require("./flow/001/BP12_PVD_REPORT"))
+
+
+
 router.use(require("./flow/001/BP12_G_REPORTTEST"))
 router.use(require("./flow/001/BP12_PH_REPORT"))
 router.use(require("./flow/001/HES_PH_REPORT"))

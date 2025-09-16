@@ -93,35 +93,24 @@ router.post('/BP12PH_Report_PDF', async (req, res) => {
     // // find19 = await mongodb.find(masterDB_IC, UNIT, { "activeid": "active_id" });
     // // find20 = await mongodb.find(masterDB_IC, DESIMAL, { "activeid": "active_id" });
 
-    let getall = await mongodb.findallC(masterDB, TYPE, {  });
+    let getall = await mongodb.findallC(masterDB_FN, TYPE, {  });
 
-    // find1 = await mongodb.find(masterDB, TYPE, { "activeid": "active_id" });
-    // find2 = await mongodb.find(masterDB, ITEMs, { "activeid": "active_id" });
-    // find3 = await mongodb.find(masterDB, MACHINE, { "activeid": "active_id" });
-    // find4 = await mongodb.find(masterDB, RESULTFORMAT, {});
-    // find5 = await mongodb.find(masterDB, GRAPHTYPE, {});
-    // find6 = await mongodb.find(masterDB, INSTRUMENTS, {});
-    // find7 = await mongodb.find(masterDB, CALCULATE, { "activeid": "active_id" });
-    // find8 = await mongodb.find(masterDB, SPECIFICATION, { "activeid": "active_id" });
-    // find9 = await mongodb.find(masterDB, UNIT, { "activeid": "active_id" });
-    // find10 = await mongodb.find(masterDB, DESIMAL, { "activeid": "active_id" });
+    find1 = await getall[TYPE];
+    find2 = await getall[ITEMs];
+    find3 = await getall[MACHINE];
+    find4 = await getall[RESULTFORMAT];
+    find5 = await getall[GRAPHTYPE];
+    find6 = await getall[INSTRUMENTS];
+    find7 = await getall[CALCULATE];
+    find8 = await getall[SPECIFICATION];
+    find9 = await getall[UNIT];
+    find10 = await getall[DESIMAL];
 
-    // find1 = await getall[TYPE];
-    // find2 = await getall[ITEMs];
-    // find3 = await getall[MACHINE];
-    // find4 = await getall[RESULTFORMAT];
-    // find5 = await getall[GRAPHTYPE];
-    // find6 = await getall[INSTRUMENTS];
-    // find7 = await getall[CALCULATE];
-    // find8 = await getall[SPECIFICATION];
-    // find9 = await getall[UNIT];
-    // find10 = await getall[DESIMAL];
+    let getall_IC = await mongodb.findallC(masterDB_IC, TYPE, {  });
 
-    // let getall_IC = await mongodb.findallC(masterDB_IC, TYPE, {  });
-
-    // find12 = await getall_IC[ITEMs];
-    // find13 = await  getall_IC[MACHINE];
-    // find18 = await  getall_IC[SPECIFICATION];
+    find12 = await getall_IC[ITEMs];
+    find13 = await  getall_IC[MACHINE];
+    find18 = await  getall_IC[SPECIFICATION];
 
 
 

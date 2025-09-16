@@ -106,22 +106,22 @@ router.post('/BP12PH_Report_PDF', async (req, res) => {
     // find9 = await mongodb.find(masterDB, UNIT, { "activeid": "active_id" });
     // find10 = await mongodb.find(masterDB, DESIMAL, { "activeid": "active_id" });
 
-    find1 =  getall[TYPE];
-    find2 =  getall[ITEMs];
-    find3 =  getall[MACHINE];
-    find4 =  getall[RESULTFORMAT];
-    find5 =  getall[GRAPHTYPE];
-    find6 =  getall[INSTRUMENTS];
-    find7 =  getall[CALCULATE];
-    find8 =  getall[SPECIFICATION];
-    find9 =  getall[UNIT];
-    find10 =  getall[DESIMAL];
+    // find1 = await getall[TYPE];
+    // find2 = await getall[ITEMs];
+    // find3 = await getall[MACHINE];
+    // find4 = await getall[RESULTFORMAT];
+    // find5 = await getall[GRAPHTYPE];
+    // find6 = await getall[INSTRUMENTS];
+    // find7 = await getall[CALCULATE];
+    // find8 = await getall[SPECIFICATION];
+    // find9 = await getall[UNIT];
+    // find10 = await getall[DESIMAL];
 
-    let getall_IC = await mongodb.findallC(masterDB_IC, TYPE, {  });
+    // let getall_IC = await mongodb.findallC(masterDB_IC, TYPE, {  });
 
-    find12 =  getall_IC[ITEMs];
-    find13 =   getall_IC[MACHINE];
-    find18 =   getall_IC[SPECIFICATION];
+    // find12 = await getall_IC[ITEMs];
+    // find13 = await  getall_IC[MACHINE];
+    // find18 = await  getall_IC[SPECIFICATION];
 
 
 

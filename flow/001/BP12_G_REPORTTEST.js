@@ -45,22 +45,38 @@ router.post('/BP12G_TEST_Report_PDF', async (req, res) => {
   let find8 = [];
   let find9 = [];
   let find10= [];
+  let find11= [];
 
   let DATA = [];
   let PATTERNs = [];
   //-------------------------------------
   if (input['PO'] != undefined) {
 
-    find1 = await mongodb.find(masterDB, TYPE, { "activeid": "active_id" });
-    find2 = await mongodb.find(masterDB, ITEMs, { "activeid": "active_id" });
-    find3 = await mongodb.find(masterDB, MACHINE, { "activeid": "active_id" });
-    find4 = await mongodb.find(masterDB, RESULTFORMAT, {});
-    find5 = await mongodb.find(masterDB, GRAPHTYPE, {});
-    find6 = await mongodb.find(masterDB, INSTRUMENTS, {});
-    find7 = await mongodb.find(masterDB, CALCULATE, { "activeid": "active_id" });
-    find8 = await mongodb.find(masterDB, SPECIFICATION, { "activeid": "active_id" });
-    find9 = await mongodb.find(masterDB, UNIT, { "activeid": "active_id" });
-    find10 = await mongodb.find(masterDB, DESIMAL, { "activeid": "active_id" });
+    let getall = await mongodb.findallC(masterDB, TYPE, { "activeid": "active_id" });
+
+    // find1 = await mongodb.find(masterDB, TYPE, { "activeid": "active_id" });
+    // find2 = await mongodb.find(masterDB, ITEMs, { "activeid": "active_id" });
+    // find3 = await mongodb.find(masterDB, MACHINE, { "activeid": "active_id" });
+    // find4 = await mongodb.find(masterDB, RESULTFORMAT, {});
+    // find5 = await mongodb.find(masterDB, GRAPHTYPE, {});
+    // find6 = await mongodb.find(masterDB, INSTRUMENTS, {});
+    // find7 = await mongodb.find(masterDB, CALCULATE, { "activeid": "active_id" });
+    // find8 = await mongodb.find(masterDB, SPECIFICATION, { "activeid": "active_id" });
+    // find9 = await mongodb.find(masterDB, UNIT, { "activeid": "active_id" });
+    // find10 = await mongodb.find(masterDB, DESIMAL, { "activeid": "active_id" });
+
+    find1 = await getall[TYPE];
+    find2 = await getall[ITEMs];
+    find3 = await getall[MACHINE];
+    find4 = await getall[RESULTFORMAT];
+    find5 = await getall[GRAPHTYPE];
+    find6 = await getall[INSTRUMENTS];
+    find7 = await getall[CALCULATE];
+    find8 = await getall[SPECIFICATION];
+    find9 = await getall[UNIT];
+    find10 = await getall[DESIMAL];
+
+    find11 = await mongodb.find(PATTERN, 'GRAPH_TABLE_CONTROL', { });
 
 
     DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
@@ -71,7 +87,7 @@ router.post('/BP12G_TEST_Report_PDF', async (req, res) => {
 
 
 
-  return res.json({ "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7 , "SPECIFICATION": find8 , "UNIT": find9, "DESIMAL": find10 });
+  return res.json({ "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7 , "SPECIFICATION": find8 , "UNIT": find9, "DESIMAL": find10 , "GTC":find11 });
 });
 
 router.get('/FINALMASTER', async (req, res) => {

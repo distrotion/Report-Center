@@ -69,64 +69,64 @@ router.post('/goPDF', async (req, res) => {
     }
 
 
-    var dir = ``;
-    if (ORDER.length > 4) {
-      if (ORDER.substring(0, 3) === '211' || ORDER.substring(0, 3) === '212') {
-        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12PH\\${ORDER}`;
-      }
+    // var dir = ``;
+    // if (ORDER.length > 4) {
+    //   if (ORDER.substring(0, 3) === '211' || ORDER.substring(0, 3) === '212') {
+    //     dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12PH\\${ORDER}`;
+    //   }
 
-      else if (ORDER.substring(0, 3) === '251' || ORDER.substring(0, 3) === '252') {
-        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12KNG\\${ORDER}`;
-      }
+    //   else if (ORDER.substring(0, 3) === '251' || ORDER.substring(0, 3) === '252') {
+    //     dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12KNG\\${ORDER}`;
+    //   }
 
-      else if (ORDER.substring(0, 3) === '331' || ORDER.substring(0, 3) === '332') {
-        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\HESISN\\${ORDER}`;
-      }
-      else if (ORDER.substring(0, 3) === '341' || ORDER.substring(0, 3) === '342') {
-        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\HESGAS\\${ORDER}`;
-      }
-      else if (ORDER.substring(0, 3) === '311' || ORDER.substring(0, 3) === '312') {
-        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\HESPH\\${ORDER}`;
-      }
+    //   else if (ORDER.substring(0, 3) === '331' || ORDER.substring(0, 3) === '332') {
+    //     dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\HESISN\\${ORDER}`;
+    //   }
+    //   else if (ORDER.substring(0, 3) === '341' || ORDER.substring(0, 3) === '342') {
+    //     dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\HESGAS\\${ORDER}`;
+    //   }
+    //   else if (ORDER.substring(0, 3) === '311' || ORDER.substring(0, 3) === '312') {
+    //     dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\HESPH\\${ORDER}`;
+    //   }
 
-      else if (ORDER.substring(0, 3) === '321' || ORDER.substring(0, 3) === '322') {
-        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\HESPAL\\${ORDER}`;
-      }
+    //   else if (ORDER.substring(0, 3) === '321' || ORDER.substring(0, 3) === '322') {
+    //     dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\HESPAL\\${ORDER}`;
+    //   }
 
-      else if (ORDER.substring(0, 3) === '361' || ORDER.substring(0, 3) === '362') {
-        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\HESDEL\\${ORDER}`;
-      }
+    //   else if (ORDER.substring(0, 3) === '361' || ORDER.substring(0, 3) === '362') {
+    //     dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\HESDEL\\${ORDER}`;
+    //   }
      
-      else if (ORDER.substring(0, 3) === '351' || ORDER.substring(0, 3) === '352') {
-        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\HESHYD\\${ORDER}`;
-      }
-      else if (ORDER.substring(0, 3) === '261' || ORDER.substring(0, 3) === '262') {
-        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\GWGAS\\${ORDER}`;
-      }
-      else if (ORDER.substring(0, 3) === '231' || ORDER.substring(0, 3) === '232') {
-        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12GAS\\${ORDER}`;
-      }
-      else if (ORDER.substring(0, 3) === '241' || ORDER.substring(0, 3) === '242') {
-        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12PVD\\${ORDER}`;
-      }
-      else if (ORDER.substring(0, 3) === '221' || ORDER.substring(0, 3) === '222') {
-        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12PAL\\${ORDER}`;
-      }
+    //   else if (ORDER.substring(0, 3) === '351' || ORDER.substring(0, 3) === '352') {
+    //     dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\HESHYD\\${ORDER}`;
+    //   }
+    //   else if (ORDER.substring(0, 3) === '261' || ORDER.substring(0, 3) === '262') {
+    //     dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\GWGAS\\${ORDER}`;
+    //   }
+    //   else if (ORDER.substring(0, 3) === '231' || ORDER.substring(0, 3) === '232') {
+    //     dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12GAS\\${ORDER}`;
+    //   }
+    //   else if (ORDER.substring(0, 3) === '241' || ORDER.substring(0, 3) === '242') {
+    //     dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12PVD\\${ORDER}`;
+    //   }
+    //   else if (ORDER.substring(0, 3) === '221' || ORDER.substring(0, 3) === '222') {
+    //     dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\BP12PAL\\${ORDER}`;
+    //   }
 
-      else {
-        dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\NOPLANT\\${input['PO']}`;
-      }
-    } else {
-      dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\NOPLANT\\${input['PO']}`;
-    }
+    //   else {
+    //     dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\NOPLANT\\${input['PO']}`;
+    //   }
+    // } else {
+    //   dir = `\\\\172.20.10.150\\sap_s4hana\\S4PRD\\HSORDERSHEET_PP\\Output\\NOPLANT\\${input['PO']}`;
+    // }
 
 
-    console.log(dir);
+    // console.log(dir);
 
-    //S4PRD\HSORDERSHEET_PP\Input
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
+    // //S4PRD\HSORDERSHEET_PP\Input
+    // if (!fs.existsSync(dir)) {
+    //   fs.mkdirSync(dir, { recursive: true });
+    // }
 
 
     //save file แล้วผม read มาเป็น base64 ส่งกลับ

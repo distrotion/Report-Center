@@ -223,8 +223,12 @@ router.post('/BP12PH_Report_by_ref', async (req, res) => {
 
 
 
-    DATAlist = await mongodb.find("MAIN_DATA", "MAIN", { "ReferFrom": `${input['PO']}` });
-    DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
+    // DATAlist = await mongodb.find("MAIN_DATA", "MAIN", { "ReferFrom": `${input['PO']}` });
+    // DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
+//findproject
+    DATAlist = await mongodb.findproject("MAIN_DATA", "MAIN", { "ReferFrom": `${input['PO']}` },{"PO":1,"CP":1,"MATCP":1,"CUSTOMER":1,"PART":1,"PARTNAME":1,"MATERIAL":1,"CUSLOTNO":1, "IDInspected": 1 , "IDCheck": 1 , "IDApprove": 1 , "IDApprove": 1 , "FG_CHARG": 1 , "CUSLOT": 1, "QTY": 1, "TPKLOT": 1});
+    DATA = await mongodb.findproject("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` },{"PO":1,"CP":1,"MATCP":1,"CUSTOMER":1,"PART":1,"PARTNAME":1,"MATERIAL":1,"CUSLOTNO":1, "IDInspected": 1 , "IDCheck": 1 , "IDApprove": 1 , "IDApprove": 1 , "FG_CHARG": 1, "CUSLOT": 1, "QTY": 1, "TPKLOT": 1 });
+    
 
     return res.json({
       "DATA": DATA,
@@ -232,9 +236,6 @@ router.post('/BP12PH_Report_by_ref', async (req, res) => {
     });
 
   }
-
-
-
 
 });
 

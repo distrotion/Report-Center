@@ -80,6 +80,9 @@ router.post('/BP12G_TEST_Report_PDF', async (req, res) => {
 
 
     DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
+    if(DATA.length == 0){
+      DATA = await mongodb.find("MAIN_DATA", "MAIN_271025", { "PO": `${input['PO']}` });
+    }
     if (DATA.length > 0) {
       PATTERNs = await mongodb.find(PATTERN, PATTERN_01, { "CP": `${DATA[0]['MATCP']}` });
     }
@@ -105,6 +108,7 @@ router.post('/BP12G_TESTAS_Report_by_ref', async (req, res) => {
   if (input['PO'] != undefined) {
     DATAlist = await mongodb.find("MAIN_DATA", "MAIN", { "ReferFrom": `${input['PO']}` });
     DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
+    
 
     return res.json({
       "DATA": DATA,

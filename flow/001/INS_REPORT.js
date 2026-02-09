@@ -48,15 +48,38 @@ router.post('/INS_Report_PDF', async (req, res) => {
   //-------------------------------------
   if (input['PO'] != undefined) {
 
-    find1 = await mongodb.find(masterDB, TYPE, { "activeid": "active_id" });
-    find2 = await mongodb.find(masterDB, ITEMs, { "activeid": "active_id" });
-    find3 = await mongodb.find(masterDB, MACHINE, { "activeid": "active_id" });
-    find4 = await mongodb.find(masterDB, RESULTFORMAT, {});
-    find5 = await mongodb.find(masterDB, GRAPHTYPE, {});
-    find6 = await mongodb.find(masterDB, INSTRUMENTS, {});
-    find7 = await mongodb.find(masterDB, CALCULATE, { "activeid": "active_id" });
-    find8 = await mongodb.find(masterDB, SPECIFICATION, { "activeid": "active_id" });
-    find9 = await mongodb.find(masterDB, UNIT, { "activeid": "active_id" });
+    // find1 = await mongodb.find(masterDB, TYPE, { "activeid": "active_id" });
+    // find2 = await mongodb.find(masterDB, ITEMs, { "activeid": "active_id" });
+    // find3 = await mongodb.find(masterDB, MACHINE, { "activeid": "active_id" });
+    // find4 = await mongodb.find(masterDB, RESULTFORMAT, {});
+    // find5 = await mongodb.find(masterDB, GRAPHTYPE, {});
+    // find6 = await mongodb.find(masterDB, INSTRUMENTS, {});
+    // find7 = await mongodb.find(masterDB, CALCULATE, { "activeid": "active_id" });
+    // find8 = await mongodb.find(masterDB, SPECIFICATION, { "activeid": "active_id" });
+    // find9 = await mongodb.find(masterDB, UNIT, { "activeid": "active_id" });
+    let getall = await mongodb.findallC(masterDB, TYPE, { "activeid": "active_id" });
+    
+        // find1 = await mongodb.find(masterDB, TYPE, { "activeid": "active_id" });
+        // find2 = await mongodb.find(masterDB, ITEMs, { "activeid": "active_id" });
+        // find3 = await mongodb.find(masterDB, MACHINE, { "activeid": "active_id" });
+        // find4 = await mongodb.find(masterDB, RESULTFORMAT, {});
+        // find5 = await mongodb.find(masterDB, GRAPHTYPE, {});
+        // find6 = await mongodb.find(masterDB, INSTRUMENTS, {});
+        // find7 = await mongodb.find(masterDB, CALCULATE, { "activeid": "active_id" });
+        // find8 = await mongodb.find(masterDB, SPECIFICATION, { "activeid": "active_id" });
+        // find9 = await mongodb.find(masterDB, UNIT, { "activeid": "active_id" });
+   
+    
+        find1 = await getall[TYPE];
+        find2 = await getall[ITEMs];
+        find3 = await getall[MACHINE];
+        find4 = await getall[RESULTFORMAT];
+        find5 = await getall[GRAPHTYPE];
+        find6 = await getall[INSTRUMENTS];
+        find7 = await getall[CALCULATE];
+        find8 = await getall[SPECIFICATION];
+        find9 = await getall[UNIT];
+
 
 
     DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });

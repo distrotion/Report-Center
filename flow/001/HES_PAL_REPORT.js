@@ -57,28 +57,57 @@ router.post('/HESPAL_Report_PDF', async (req, res) => {
   //-------------------------------------
   if (input['PO'] != undefined) {
 
-    find1 = await mongodb.find(masterDB_FN, TYPE, { "activeid": "active_id" });
-    find2 = await mongodb.find(masterDB_FN, ITEMs, { "activeid": "active_id" });
-    find3 = await mongodb.find(masterDB_FN, MACHINE, { "activeid": "active_id" });
-    find4 = await mongodb.find(masterDB_FN, RESULTFORMAT, {});
-    find5 = await mongodb.find(masterDB_FN, GRAPHTYPE, {});
-    find6 = await mongodb.find(masterDB_FN, INSTRUMENTS, {});
-    find7 = await mongodb.find(masterDB_FN, CALCULATE, { "activeid": "active_id" });
-    find8 = await mongodb.find(masterDB_FN, SPECIFICATION, { "activeid": "active_id" });
-    find9 = await mongodb.find(masterDB_FN, UNIT, { "activeid": "active_id" });
-    find10 = await mongodb.find(masterDB_FN, DESIMAL, { "activeid": "active_id" });
+    // find1 = await mongodb.find(masterDB_FN, TYPE, { "activeid": "active_id" });
+    // find2 = await mongodb.find(masterDB_FN, ITEMs, { "activeid": "active_id" });
+    // find3 = await mongodb.find(masterDB_FN, MACHINE, { "activeid": "active_id" });
+    // find4 = await mongodb.find(masterDB_FN, RESULTFORMAT, {});
+    // find5 = await mongodb.find(masterDB_FN, GRAPHTYPE, {});
+    // find6 = await mongodb.find(masterDB_FN, INSTRUMENTS, {});
+    // find7 = await mongodb.find(masterDB_FN, CALCULATE, { "activeid": "active_id" });
+    // find8 = await mongodb.find(masterDB_FN, SPECIFICATION, { "activeid": "active_id" });
+    // find9 = await mongodb.find(masterDB_FN, UNIT, { "activeid": "active_id" });
+    // find10 = await mongodb.find(masterDB_FN, DESIMAL, { "activeid": "active_id" });
 
 
-    find11 = await mongodb.find(masterDB_IC, TYPE, { "activeid": "active_id" });
-    find12 = await mongodb.find(masterDB_IC, ITEMs, { "activeid": "active_id" });
-    find13 = await mongodb.find(masterDB_IC, MACHINE, { "activeid": "active_id" });
-    find14 = await mongodb.find(masterDB_IC, RESULTFORMAT, {});
-    find15 = await mongodb.find(masterDB_IC, GRAPHTYPE, {});
-    find16 = await mongodb.find(masterDB_IC, INSTRUMENTS, {});
-    find17 = await mongodb.find(masterDB_IC, CALCULATE, { "activeid": "active_id" });
-    find18 = await mongodb.find(masterDB_IC, SPECIFICATION, { "activeid": "active_id" });
-    find19 = await mongodb.find(masterDB_IC, UNIT, { "activeid": "active_id" });
-    find20 = await mongodb.find(masterDB_IC, DESIMAL, { "activeid": "active_id" });
+    // find11 = await mongodb.find(masterDB_IC, TYPE, { "activeid": "active_id" });
+    // find12 = await mongodb.find(masterDB_IC, ITEMs, { "activeid": "active_id" });
+    // find13 = await mongodb.find(masterDB_IC, MACHINE, { "activeid": "active_id" });
+    // find14 = await mongodb.find(masterDB_IC, RESULTFORMAT, {});
+    // find15 = await mongodb.find(masterDB_IC, GRAPHTYPE, {});
+    // find16 = await mongodb.find(masterDB_IC, INSTRUMENTS, {});
+    // find17 = await mongodb.find(masterDB_IC, CALCULATE, { "activeid": "active_id" });
+    // find18 = await mongodb.find(masterDB_IC, SPECIFICATION, { "activeid": "active_id" });
+    // find19 = await mongodb.find(masterDB_IC, UNIT, { "activeid": "active_id" });
+    // find20 = await mongodb.find(masterDB_IC, DESIMAL, { "activeid": "active_id" });
+
+    let getall = await mongodb.findallC(masterDB_FN, TYPE, {  });
+        
+            find1 = await getall[TYPE];
+            find2 = await getall[ITEMs];
+            find3 = await getall[MACHINE];
+            find4 = await getall[RESULTFORMAT];
+            find5 = await getall[GRAPHTYPE];
+            find6 = await getall[INSTRUMENTS];
+            find7 = await getall[CALCULATE];
+            find8 = await getall[SPECIFICATION];
+            find9 = await getall[UNIT];
+            find10 = await getall[DESIMAL];
+        
+            let getall_IC = await mongodb.findallC(masterDB_IC, TYPE, {  });
+        
+            // find12 = await getall_IC[ITEMs];
+            // find13 = await  getall_IC[MACHINE];
+            // find18 = await  getall_IC[SPECIFICATION];
+            find11 = await getall[TYPE];
+            find12 = await getall[ITEMs];
+            find13 = await getall[MACHINE];
+            find14 = await getall[RESULTFORMAT];
+            find15 = await getall[GRAPHTYPE];
+            find16 = await getall[INSTRUMENTS];
+            find17 = await getall[CALCULATE];
+            find18 = await getall[SPECIFICATION];
+            find19 = await getall[UNIT];
+            find20 = await getall[DESIMAL];
 
 
 

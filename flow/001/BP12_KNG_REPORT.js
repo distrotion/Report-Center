@@ -109,16 +109,16 @@ router.post('/BP12KNG_Report_PDF', async (req, res) => {
             // find12 = await getall_IC[ITEMs];
             // find13 = await  getall_IC[MACHINE];
             // find18 = await  getall_IC[SPECIFICATION];
-            find11 = await getall[TYPE];
-            find12 = await getall[ITEMs];
-            find13 = await getall[MACHINE];
-            find14 = await getall[RESULTFORMAT];
-            find15 = await getall[GRAPHTYPE];
-            find16 = await getall[INSTRUMENTS];
-            find17 = await getall[CALCULATE];
-            find18 = await getall[SPECIFICATION];
-            find19 = await getall[UNIT];
-            find20 = await getall[DESIMAL];
+            find11 = await getall_IC[TYPE];
+            find12 = await getall_IC[ITEMs];
+            find13 = await getall_IC[MACHINE];
+            find14 = await getall_IC[RESULTFORMAT];
+            find15 = await getall_IC[GRAPHTYPE];
+            find16 = await getall_IC[INSTRUMENTS];
+            find17 = await getall_IC[CALCULATE];
+            find18 = await getall_IC[SPECIFICATION];
+            find19 = await getall_IC[UNIT];
+            find20 = await getall_IC[DESIMAL];
 
 
 

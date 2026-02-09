@@ -52,6 +52,10 @@ router.post('/BP12G_TEST_Report_PDF', async (req, res) => {
   //-------------------------------------
   if (input['PO'] != undefined) {
 
+    try {
+      
+  
+
     let getall = await mongodb.findallC(masterDB, TYPE, { "activeid": "active_id" });
 
     // find1 = await mongodb.find(masterDB, TYPE, { "activeid": "active_id" });
@@ -86,7 +90,12 @@ router.post('/BP12G_TEST_Report_PDF', async (req, res) => {
     if (DATA.length > 0) {
       PATTERNs = await mongodb.find(PATTERN, PATTERN_01, { "CP": `${DATA[0]['MATCP']}` });
     }
+      } catch (error) {
+      
+    }
   }
+
+  
 
 
 

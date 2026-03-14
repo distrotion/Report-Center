@@ -27,11 +27,6 @@ let FREQUENCY = "FREQUENCY";
 let PATTERN_01 = "PATTERN_01";
 
 
-
-
-
-
-
 router.get('/FINALMASTER', async (req, res) => {
   return res.json("READY");
 });
@@ -51,7 +46,6 @@ router.post('/BP12PH_Report_PDF', async (req, res) => {
   let find9 = [];
   let find10 = [];
 
-
   let find11 = [];
   let find12 = [];
   let find13 = [];
@@ -66,66 +60,39 @@ router.post('/BP12PH_Report_PDF', async (req, res) => {
   let DATA = [];
   let PATTERNs = [];
   //-------------------------------------
+  try {
+    if (input['PO'] != undefined) {
 
-  if (input['PO'] != undefined) {
-    console.log("----1");
+      let getall, getall_IC;
+      [getall, getall_IC, DATA] = await Promise.all([
+        mongodb.findallC(masterDB_FN),
+        mongodb.findallC(masterDB_IC),
+        mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` })
+      ]);
 
-    // find1 = await mongodb.find(masterDB_FN, TYPE, { "activeid": "active_id" });
-    // find2 = await mongodb.find(masterDB_FN, ITEMs, { "activeid": "active_id" });
-    // find3 = await mongodb.find(masterDB_FN, MACHINE, { "activeid": "active_id" });
-    // find4 = await mongodb.find(masterDB_FN, RESULTFORMAT, {});
-    // find5 = await mongodb.find(masterDB_FN, GRAPHTYPE, {});
-    // find6 = await mongodb.find(masterDB_FN, INSTRUMENTS, {});
-    // find7 = await mongodb.find(masterDB_FN, CALCULATE, { "activeid": "active_id" });
-    // find8 = await mongodb.find(masterDB_FN, SPECIFICATION, { "activeid": "active_id" });
-    // find9 = await mongodb.find(masterDB_FN, UNIT, { "activeid": "active_id" });
-    // find10 = await mongodb.find(masterDB_FN, DESIMAL, { "activeid": "active_id" });
+      find1 = getall[TYPE];
+      find2 = getall[ITEMs];
+      find3 = getall[MACHINE];
+      find4 = getall[RESULTFORMAT];
+      find5 = getall[GRAPHTYPE];
+      find6 = getall[INSTRUMENTS];
+      find7 = getall[CALCULATE];
+      find8 = getall[SPECIFICATION];
+      find9 = getall[UNIT];
+      find10 = getall[DESIMAL];
 
+      find12 = getall_IC[ITEMs];
+      find13 = getall_IC[MACHINE];
+      find18 = getall_IC[SPECIFICATION];
 
-    // // find11 = await mongodb.find(masterDB_IC, TYPE, { "activeid": "active_id" });
-    // find12 = await mongodb.find(masterDB_IC, ITEMs, { "activeid": "active_id" });
-    // find13 = await mongodb.find(masterDB_IC, MACHINE, { "activeid": "active_id" });
-    // // find14 = await mongodb.find(masterDB_IC, RESULTFORMAT, {});
-    // // find15 = await mongodb.find(masterDB_IC, GRAPHTYPE, {});
-    // // find16 = await mongodb.find(masterDB_IC, INSTRUMENTS, {});
-    // // find17 = await mongodb.find(masterDB_IC, CALCULATE, { "activeid": "active_id" });
-    // find18 = await mongodb.find(masterDB_IC, SPECIFICATION, { "activeid": "active_id" });
-    // // find19 = await mongodb.find(masterDB_IC, UNIT, { "activeid": "active_id" });
-    // // find20 = await mongodb.find(masterDB_IC, DESIMAL, { "activeid": "active_id" });
-
-    let getall = await mongodb.findallC(masterDB_FN, TYPE, {  });
-
-    find1 = await getall[TYPE];
-    find2 = await getall[ITEMs];
-    find3 = await getall[MACHINE];
-    find4 = await getall[RESULTFORMAT];
-    find5 = await getall[GRAPHTYPE];
-    find6 = await getall[INSTRUMENTS];
-    find7 = await getall[CALCULATE];
-    find8 = await getall[SPECIFICATION];
-    find9 = await getall[UNIT];
-    find10 = await getall[DESIMAL];
-
-    let getall_IC = await mongodb.findallC(masterDB_IC, TYPE, {  });
-
-    find12 = await getall_IC[ITEMs];
-    find13 = await  getall_IC[MACHINE];
-    find18 = await  getall_IC[SPECIFICATION];
-
-
-
-
-    console.log("----2");
-
-    DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
-    if (DATA.length > 0) {
-      PATTERNs = await mongodb.find(PATTERN, PATTERN_01, { "CP": `${DATA[0]['MATCP']}` });
+      if (DATA.length > 0) {
+        PATTERNs = await mongodb.find(PATTERN, PATTERN_01, { "CP": `${DATA[0]['MATCP']}` });
+      }
     }
-    console.log("----3");
-
+  } catch (error) {
+    console.error("BP12PH_Report_PDF error:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
-
-
 
   return res.json({
     "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7, "SPECIFICATION": find8, "UNIT": find9, "DESIMAL": find10,
@@ -137,76 +104,26 @@ router.post('/BP12PH_Report_PDF_onlydata', async (req, res) => {
   //-------------------------------------
   console.log("--BP12PH_Report_PDF_onlydata--");
   let input = req.body;
-  let find1 = [];
-  let find2 = [];
-  let find3 = [];
-  let find4 = [];
-  let find5 = [];
-  let find6 = [];
-  let find7 = [];
-  let find8 = [];
-  let find9 = [];
-  let find10 = [];
-
-
-  let find11 = [];
-  let find12 = [];
-  let find13 = [];
-  let find14 = [];
-  let find15 = [];
-  let find16 = [];
-  let find17 = [];
-  let find18 = [];
-  let find19 = [];
-  let find20 = [];
 
   let DATA = [];
   let PATTERNs = [];
   //-------------------------------------
-
-  if (input['PO'] != undefined) {
-    console.log("----1");
-
-    // find1 = await mongodb.find(masterDB_FN, TYPE, { "activeid": "active_id" });
-    // find2 = await mongodb.find(masterDB_FN, ITEMs, { "activeid": "active_id" });
-    // find3 = await mongodb.find(masterDB_FN, MACHINE, { "activeid": "active_id" });
-    // find4 = await mongodb.find(masterDB_FN, RESULTFORMAT, {});
-    // find5 = await mongodb.find(masterDB_FN, GRAPHTYPE, {});
-    // find6 = await mongodb.find(masterDB_FN, INSTRUMENTS, {});
-    // find7 = await mongodb.find(masterDB_FN, CALCULATE, { "activeid": "active_id" });
-    // find8 = await mongodb.find(masterDB_FN, SPECIFICATION, { "activeid": "active_id" });
-    // find9 = await mongodb.find(masterDB_FN, UNIT, { "activeid": "active_id" });
-    // find10 = await mongodb.find(masterDB_FN, DESIMAL, { "activeid": "active_id" });
-
-
-    // find11 = await mongodb.find(masterDB_IC, TYPE, { "activeid": "active_id" });
-    // find12 = await mongodb.find(masterDB_IC, ITEMs, { "activeid": "active_id" });
-    // find13 = await mongodb.find(masterDB_IC, MACHINE, { "activeid": "active_id" });
-    // find14 = await mongodb.find(masterDB_IC, RESULTFORMAT, {});
-    // find15 = await mongodb.find(masterDB_IC, GRAPHTYPE, {});
-    // find16 = await mongodb.find(masterDB_IC, INSTRUMENTS, {});
-    // find17 = await mongodb.find(masterDB_IC, CALCULATE, { "activeid": "active_id" });
-    // find18 = await mongodb.find(masterDB_IC, SPECIFICATION, { "activeid": "active_id" });
-    // find19 = await mongodb.find(masterDB_IC, UNIT, { "activeid": "active_id" });
-    // find20 = await mongodb.find(masterDB_IC, DESIMAL, { "activeid": "active_id" });
-
-
-
-    console.log("----2");
-
-    DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
-    if (DATA.length > 0) {
-      PATTERNs = await mongodb.find(PATTERN, PATTERN_01, { "CP": `${DATA[0]['MATCP']}` });
+  try {
+    if (input['PO'] != undefined) {
+      DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
+      if (DATA.length > 0) {
+        PATTERNs = await mongodb.find(PATTERN, PATTERN_01, { "CP": `${DATA[0]['MATCP']}` });
+      }
     }
-    console.log("----3");
-
+  } catch (error) {
+    console.error("BP12PH_Report_PDF_onlydata error:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 
-
-
   return res.json({
-    "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7, "SPECIFICATION": find8, "UNIT": find9, "DESIMAL": find10,
-    "TYPE_IC": find11, "ITEMS_IC": find12, "METHOD_IC": find13, "RESULTFORMAT_IC": find14, "GRAPHTYPE_IC": find15, "INSTRUMENTS_IC": find16, "CALCULATE_IC": find17, "SPECIFICATION_IC": find18, "UNIT_IC": find19, "DESIMAL_IC": find20,
+    "DATA": DATA, "PATTERN": PATTERNs,
+    "TYPE": [], "ITEMS": [], "METHOD": [], "RESULTFORMAT": [], "GRAPHTYPE": [], "INSTRUMENTS": [], "CALCULATE": [], "SPECIFICATION": [], "UNIT": [], "DESIMAL": [],
+    "TYPE_IC": [], "ITEMS_IC": [], "METHOD_IC": [], "RESULTFORMAT_IC": [], "GRAPHTYPE_IC": [], "INSTRUMENTS_IC": [], "CALCULATE_IC": [], "SPECIFICATION_IC": [], "UNIT_IC": [], "DESIMAL_IC": [],
   });
 });
 
@@ -216,64 +133,44 @@ router.post('/BP12PH_Report_by_ref', async (req, res) => {
   console.log("--BP12PH_Report_by_ref--");
   let input = req.body;
   let DATA = [];
-  let DATAmaster = [];
+  let DATAlist = [];
 
   //-------------------------------------
-  if (input['PO'] != undefined) {
-
-
-
-    // DATAlist = await mongodb.find("MAIN_DATA", "MAIN", { "ReferFrom": `${input['PO']}` });
-    // DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
-//findproject
-    DATAlist = await mongodb.findproject("MAIN_DATA", "MAIN", { "ReferFrom": `${input['PO']}` },{"PO":1,"CP":1,"MATCP":1,"CUSTOMER":1,"PART":1,"PARTNAME":1,"MATERIAL":1,"CUSLOTNO":1, "IDInspected": 1 , "IDCheck": 1 , "IDApprove": 1 , "IDApprove": 1 , "FG_CHARG": 1 , "CUSLOT": 1, "QTY": 1, "TPKLOT": 1});
-    DATA = await mongodb.findproject("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` },{"PO":1,"CP":1,"MATCP":1,"CUSTOMER":1,"PART":1,"PARTNAME":1,"MATERIAL":1,"CUSLOTNO":1, "IDInspected": 1 , "IDCheck": 1 , "IDApprove": 1 , "IDApprove": 1 , "FG_CHARG": 1, "CUSLOT": 1, "QTY": 1, "TPKLOT": 1 });
-    
-
-    return res.json({
-      "DATA": DATA,
-      "DATAlist": DATAlist,
-    });
-
+  try {
+    if (input['PO'] != undefined) {
+      [DATAlist, DATA] = await Promise.all([
+        mongodb.findproject("MAIN_DATA", "MAIN", { "ReferFrom": `${input['PO']}` }, { "PO": 1, "CP": 1, "MATCP": 1, "CUSTOMER": 1, "PART": 1, "PARTNAME": 1, "MATERIAL": 1, "CUSLOTNO": 1, "IDInspected": 1, "IDCheck": 1, "IDApprove": 1, "FG_CHARG": 1, "CUSLOT": 1, "QTY": 1, "TPKLOT": 1 }),
+        mongodb.findproject("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` }, { "PO": 1, "CP": 1, "MATCP": 1, "CUSTOMER": 1, "PART": 1, "PARTNAME": 1, "MATERIAL": 1, "CUSLOTNO": 1, "IDInspected": 1, "IDCheck": 1, "IDApprove": 1, "FG_CHARG": 1, "CUSLOT": 1, "QTY": 1, "TPKLOT": 1 })
+      ]);
+    }
+  } catch (error) {
+    console.error("BP12PH_Report_by_ref error:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 
+  return res.json({
+    "DATA": DATA,
+    "DATAlist": DATAlist,
+  });
 });
 
 router.post('/BP12PH_CALDATA', async (req, res) => {
   //-------------------------------------
   console.log("--BP12PH_CALDATA--");
   let input = req.body;
-  let DATA = [];
   let CALDATA = [];
 
   //-------------------------------------
-  if (input['PO'] != undefined) {
-
-
-
-    CALDATA = await mongodb.find("BUFFERCAL", "SURBAL013", { "PO": `${input['PO']}` });
-
-
-    return res.json({
-
-      "DATAlist": CALDATA,
-    });
-
-  } else {
-    return res.json({
-
-      "DATAlist": CALDATA,
-    });
-
+  try {
+    if (input['PO'] != undefined) {
+      CALDATA = await mongodb.find("BUFFERCAL", "SURBAL013", { "PO": `${input['PO']}` });
+    }
+  } catch (error) {
+    console.error("BP12PH_CALDATA error:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 
-
-
-
-});
-
-router.get('/FINALMASTER', async (req, res) => {
-  return res.json("READY");
+  return res.json({ "DATAlist": CALDATA });
 });
 
 

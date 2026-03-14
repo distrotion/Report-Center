@@ -46,68 +46,51 @@ router.post('/INS_Report_PDF', async (req, res) => {
   let DATA = [];
   let PATTERNs = [];
   //-------------------------------------
-  if (input['PO'] != undefined) {
+  try {
+    if (input['PO'] != undefined) {
 
-    // find1 = await mongodb.find(masterDB, TYPE, { "activeid": "active_id" });
-    // find2 = await mongodb.find(masterDB, ITEMs, { "activeid": "active_id" });
-    // find3 = await mongodb.find(masterDB, MACHINE, { "activeid": "active_id" });
-    // find4 = await mongodb.find(masterDB, RESULTFORMAT, {});
-    // find5 = await mongodb.find(masterDB, GRAPHTYPE, {});
-    // find6 = await mongodb.find(masterDB, INSTRUMENTS, {});
-    // find7 = await mongodb.find(masterDB, CALCULATE, { "activeid": "active_id" });
-    // find8 = await mongodb.find(masterDB, SPECIFICATION, { "activeid": "active_id" });
-    // find9 = await mongodb.find(masterDB, UNIT, { "activeid": "active_id" });
-    let getall = await mongodb.findallC(masterDB, TYPE, { "activeid": "active_id" });
-    
-        // find1 = await mongodb.find(masterDB, TYPE, { "activeid": "active_id" });
-        // find2 = await mongodb.find(masterDB, ITEMs, { "activeid": "active_id" });
-        // find3 = await mongodb.find(masterDB, MACHINE, { "activeid": "active_id" });
-        // find4 = await mongodb.find(masterDB, RESULTFORMAT, {});
-        // find5 = await mongodb.find(masterDB, GRAPHTYPE, {});
-        // find6 = await mongodb.find(masterDB, INSTRUMENTS, {});
-        // find7 = await mongodb.find(masterDB, CALCULATE, { "activeid": "active_id" });
-        // find8 = await mongodb.find(masterDB, SPECIFICATION, { "activeid": "active_id" });
-        // find9 = await mongodb.find(masterDB, UNIT, { "activeid": "active_id" });
-   
-    
-        find1 = await getall[TYPE];
-        find2 = await getall[ITEMs];
-        find3 = await getall[MACHINE];
-        find4 = await getall[RESULTFORMAT];
-        find5 = await getall[GRAPHTYPE];
-        find6 = await getall[INSTRUMENTS];
-        find7 = await getall[CALCULATE];
-        find8 = await getall[SPECIFICATION];
-        find9 = await getall[UNIT];
+      let getall;
+      [getall, DATA] = await Promise.all([
+        mongodb.findallC(masterDB),
+        mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` })
+      ]);
 
+      find1 = getall[TYPE];
+      find2 = getall[ITEMs];
+      find3 = getall[MACHINE];
+      find4 = getall[RESULTFORMAT];
+      find5 = getall[GRAPHTYPE];
+      find6 = getall[INSTRUMENTS];
+      find7 = getall[CALCULATE];
+      find8 = getall[SPECIFICATION];
+      find9 = getall[UNIT];
 
-
-    DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
-    if (DATA.length > 0) {
-      PATTERNs = await mongodb.find(PATTERN, PATTERN_01, { "CP": `${DATA[0]['MATCP']}` });
+      if (DATA.length > 0) {
+        PATTERNs = await mongodb.find(PATTERN, PATTERN_01, { "CP": `${DATA[0]['MATCP']}` });
+      }
     }
+  } catch (error) {
+    console.error("INS_Report_PDF error:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 
-
-
-  return res.json({ "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7 , "SPECIFICATION": find8 , "UNIT": find9 });
+  return res.json({ "DATA": DATA, "PATTERN": PATTERNs, "TYPE": find1, "ITEMS": find2, "METHOD": find3, "RESULTFORMAT": find4, "GRAPHTYPE": find5, "INSTRUMENTS": find6, "CALCULATE": find7, "SPECIFICATION": find8, "UNIT": find9 });
 });
-
-router.get('/FINALMASTER', async (req, res) => {
-  return res.json("READY");
-});
-
 
 router.post('/INS_REMASK', async (req, res) => {
   //-------------------------------------
   console.log("--INS_REMASK--");
-
+  let input = req.body;
   let output = 'NOK';
 
-  if (input['PO'] != undefined && input['REMARK'] != undefined) {
-
-    find1 = await mongodb.update("MAIN_DATA", "MAIN", { "PO": input['PO']},{ "REMARK": input['REMARK']});
-    output = 'OK';
+  try {
+    if (input['PO'] != undefined && input['REMARK'] != undefined) {
+      await mongodb.update("MAIN_DATA", "MAIN", { "PO": input['PO'] }, { $set: { "REMARK": input['REMARK'] } });
+      output = 'OK';
+    }
+  } catch (error) {
+    console.error("INS_REMASK error:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 
   return res.json({ "STATUS": output });
@@ -118,23 +101,25 @@ router.post('/INS_Report_by_ref', async (req, res) => {
   console.log("--INS_Report_by_ref--");
   let input = req.body;
   let DATA = [];
-  let DATAmaster = [];
+  let DATAlist = [];
 
   //-------------------------------------
-  if (input['PO'] != undefined) {
-
-
-
-    DATAlist = await mongodb.find("MAIN_DATA", "MAIN", { "ReferFrom": `${input['PO']}` });
-    DATA = await mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` });
-
-    return res.json({
-      "DATA": DATA,
-      "DATAlist": DATAlist,
-    });
-
+  try {
+    if (input['PO'] != undefined) {
+      [DATAlist, DATA] = await Promise.all([
+        mongodb.find("MAIN_DATA", "MAIN", { "ReferFrom": `${input['PO']}` }),
+        mongodb.find("MAIN_DATA", "MAIN", { "PO": `${input['PO']}` })
+      ]);
+    }
+  } catch (error) {
+    console.error("INS_Report_by_ref error:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 
+  return res.json({
+    "DATA": DATA,
+    "DATAlist": DATAlist,
+  });
 });
 
 
